@@ -5,12 +5,19 @@
 #include <sys/stat.h>
 #include <time.h>
 
+// Use #define to please the c89 compiler
+
+#define TOTALROOMS 10
+#define TYPETOTAL 3
+#define ROOMS_TO_CREATE 7
+#define MAX_CONNECTIONS 6
+
 // constants
 
-const int TOTALROOMS = 10;
-const int TYPETOTAL = 3;
-const int ROOMS_TO_CREATE = 7;
-const int MAX_CONNECTIONS = 6;
+// const int TOTALROOMS = 10;
+// const int TYPETOTAL = 3;
+// const int ROOMS_TO_CREATE = 7;
+// const int MAX_CONNECTIONS = 6;
 
 // Create the room struct to store information about each room
 struct Room {
@@ -90,7 +97,7 @@ char* createDirectory() {
 // generateRooms will be used to randomly create the 7 rooms
 // It will set the initial numOfConnections to 0, assign names,
 // and assign types (1st room being start_room, last room is end_room, and all others are mid_room)
-// outbound connections will be set to NULL and then assigned to avoid seg faults
+// outbound connections will be set to NULL and then assigned by calling 'createConnections()'
 
 void generateRooms(struct Room *roomArr) {
   // printf("Creating Rooms Now\n");
@@ -153,13 +160,16 @@ void generateRooms(struct Room *roomArr) {
   createConnections(roomArr);
 
     // TESTING STATEMENTS -- print to console for testing purpose
+    printf("\n");
     for (i = 0; i < ROOMS_TO_CREATE; i++) {
-      printf("Room %d Name: %s\n", i+1, roomArr[i].name);
-      printf("Room %d Type: %s\n", i+1, roomArr[i].room_type);
-      for (int c = 0; c < roomArr[i].numOfConnections; c++) {
-        printf("Room %d connection[%d]: %s\n", i+1, c, roomArr[i].outboundConnections[c]->name);
+      printf("ROOM NAME: %s\n", roomArr[i].name);
+      int c;
+      for (c = 0; c < roomArr[i].numOfConnections; c++) {
+        printf("CONNECTION %d : %s\n", c+1, roomArr[i].outboundConnections[c]->name);
       }
-      printf("Room %d # of Connections: %d\n", i+1, roomArr[i].numOfConnections);
+      printf("ROOM TYPE: %s\n", roomArr[i].room_type);
+      printf("\n");
+      // printf("Room %d # of Connections: %d\n\n", i+1, roomArr[i].numOfConnections);
     } 
 
   return;
