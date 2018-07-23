@@ -64,10 +64,10 @@ createRoomFiles(roomsArr);
   // }
 
 // outputs all of the room in the created array
-  int i;
-  for (i=0; i<ROOMS_TO_CREATE; i++) {
-    printf("Room # %d: %s\n", i+1, roomsArr[i].name);
-  }
+  // int i;
+  // for (i=0; i<ROOMS_TO_CREATE; i++) {
+  //   printf("Room # %d: %s\n", i+1, roomsArr[i].name);
+  // }
 
   // TESTING STATEMENTS -- print to console for testing purpose
   // ConnectRoom(&roomsArr[0], &roomsArr[4]);
@@ -161,17 +161,17 @@ void generateRooms(struct Room *roomArr) {
   createConnections(roomArr);
 
     // TESTING STATEMENTS -- print to console for testing purpose
-    printf("\n");
-    for (i = 0; i < ROOMS_TO_CREATE; i++) {
-      printf("ROOM NAME: %s\n", roomArr[i].name);
-      int c;
-      for (c = 0; c < roomArr[i].numOfConnections; c++) {
-        printf("CONNECTION %d : %s\n", c+1, roomArr[i].outboundConnections[c]->name);
-      }
-      printf("ROOM TYPE: %s\n", roomArr[i].room_type);
-      printf("\n");
-      // printf("Room %d # of Connections: %d\n\n", i+1, roomArr[i].numOfConnections);
-    } 
+    // printf("\n");
+    // for (i = 0; i < ROOMS_TO_CREATE; i++) {
+    //   printf("ROOM NAME: %s\n", roomArr[i].name);
+    //   int c;
+    //   for (c = 0; c < roomArr[i].numOfConnections; c++) {
+    //     printf("CONNECTION %d : %s\n", c+1, roomArr[i].outboundConnections[c]->name);
+    //   }
+    //   printf("ROOM TYPE: %s\n", roomArr[i].room_type);
+    //   printf("\n");
+    //   // printf("Room %d # of Connections: %d\n\n", i+1, roomArr[i].numOfConnections);
+    // } 
 
   return;
 }
@@ -200,9 +200,7 @@ int IsGraphFull(struct Room* roomArr)
   return full;
 }
 
-// **********************************************************************************************
-// **********************************************************************************************
-// // Adds a random, valid outbound connection from a Room to another Room
+// Adds a random, valid outbound connection from a Room to another Room
 
 void AddRandomConnection(struct Room* roomArr) {
   struct Room A;  // Maybe a struct, maybe global arrays of ints
@@ -249,9 +247,6 @@ void AddRandomConnection(struct Room* roomArr) {
   // ConnectRoom(&B, &A);  //  because this A and B will be destroyed when this function terminates
   // printf("A: Num of Connections: %d\n", A.numOfConnections);
 }
-
-// **********************************************************************************************
-// **********************************************************************************************
 
 // Returns a random Room, does NOT validate if connection can be added
 struct Room GetRandomRoom(struct Room* roomArr) {
@@ -304,7 +299,7 @@ void createRoomFiles(struct Room* roomArr) {
   char* newDir;
   newDir = createDirectory();
 
-  printf("New Dir Name: %s\n", newDir);
+  // printf("New Dir Name: %s\n", newDir);
   chdir(newDir);
 
   // for each room in the roomArr, create a new file for writing
