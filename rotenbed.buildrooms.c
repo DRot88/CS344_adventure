@@ -38,6 +38,7 @@ int IsSameRoom(struct Room x, struct Room y);
 int CanAddConnectionFrom(struct Room x);
 int ConnectionAlreadyExists(struct Room x, struct Room y);
 void ConnectRoom(struct Room* x, struct Room* y);
+void createRoomFiles(struct Room* roomArr);
 
 // store the room names
 char* roomList[TOTALROOMS] ={"Kitchen", "ManCave", "SheShed", "Zen", "Game", "Boiler", "Library", "Cellar", "Attic", "Office"};
@@ -54,7 +55,7 @@ struct Room roomsArr[ROOMS_TO_CREATE];
 generateRooms(roomsArr);
 
 // create separate files for each room
-
+createRoomFiles(roomsArr);
 
 // outputs all of the room names'
   // int i=0;
@@ -293,4 +294,35 @@ int IsSameRoom(struct Room x, struct Room y) {
     return 1;
   } 
   return 0;
+}
+
+void createRoomFiles(struct Room* roomArr) {
+
+  FILE* fileP;
+
+  // create new directory and change to the new directory
+  char* newDir;
+  newDir = createDirectory();
+
+  printf("New Dir Name: %s\n", newDir);
+  chdir(newDir);
+
+  // for each room in the roomArr, create a new file for writing
+  // per the assignment, file should have details listed like the below
+  // ROOM NAME: <room name>
+  // CONNECTION 1: <room name>
+  // …
+  // ROOM TYPE: <room type>
+  int i, k;
+  for (i = 0; i < ROOMS_TO_CREATE; i++) { //for each room
+    fileP = fopen(roomArr[i].name, "w");
+    fprintf(fileP, "ROOM NAME: %s\n", roomArr[i].name); //write room names
+
+    for (k = 0; k < roomArr[i].numOfConnections; k++) { // write out connections for that room
+      fprintf(fileP, "CONNECTION %d: %s\n", k+1, roomArr[i].outboundConnections[k]->name);
+    }
+    fprintf(fileP, "ROOM TYPE: %s\n", roomArr[i].room_type); // add room type
+  }
+  // close file
+  fclose(fileP);
 }
